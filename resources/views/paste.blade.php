@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <p>{{is_null($paste[0]->title) ? 'Untitled' : $paste[0]->title}}</p>
+        <p>{{is_null($paste->title) ? 'Untitled' : $paste->title}}</p>
         <p></p>
-        <p>{{$paste[0]->content}}</p>
+        <p>{{$paste->content}}</p>
     </div>
 @endsection

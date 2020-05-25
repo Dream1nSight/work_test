@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Paste;
+use Carbon\CarbonTimeZone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use function Sodium\add;
 
 class PasteController extends Controller
 {
@@ -49,7 +52,14 @@ class PasteController extends Controller
         $p->title = $request->post('title');
         $p->content = $content;
         $p->is_public = boolval($request->post('public'));
-        $p->expiries_at = $request->post('expiries');
+        $exp = $request->post('expiries');
+
+        if (boolval($request->post('cust_exp'))) {
+            $p->expiries_at = strlen($exp) ? Carbon::parse($exp)->addMinutes($request->post("_tz")) : null;
+        } else {
+            $p->expiries_at = strlen($exp) ? now()->addMinutes($exp) : null;
+        }
+
         $p->link = md5(time());
         $p->save();
 
@@ -64,12 +74,16 @@ class PasteController extends Controller
      */
     public function show(string $hash)
     {
-        //var_dump($hash);
-
-        $paste = DB::table('pastes')->where('link', $hash)->get();
-        //var_dump($paste);
+        $paste = Paste::query()->where('link', $hash)->get();
 
         if ($paste->count()) {
+            $paste = $paste[0];
+
+            if (now()->greaterThan(Carbon::parse($paste->expiries_at))) {
+                $paste->delete();
+                return view('404');
+            }
+
             return view('paste', compact('paste'));
         } else {
             return view('404');
