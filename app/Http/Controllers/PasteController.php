@@ -56,7 +56,7 @@ class PasteController extends Controller
             $p->expiries_at = strlen($exp) ? now()->addMinutes($exp) : null;
         }
 
-        $p->link = md5(time());
+        $p->link = dechex(time());
         $p->save();
 
         return response()->redirectTo('/' . $p->link);
