@@ -75,6 +75,13 @@
         </nav>
 
         <main class="py-4">
+            <aside class="pub-pastes-panel">
+                <p>Public Pastes</p>
+                @foreach($pub_pastes as $paste)
+                    <p><a href="/{{ $paste->link }}">{{ is_null($paste->title) ? 'Untitled' : $paste->title }}</a></p>
+                @endforeach
+            </aside>
+
             @yield('content')
         </main>
     </div>

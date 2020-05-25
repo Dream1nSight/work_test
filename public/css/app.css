@@ -9,4 +9,12 @@
 
 .pub-pastes-panel {
     float: right;
+    width: 150px;
+    margin-right: 75px;
+}
+
+.pub-pastes-panel > p {
+    border-top: 1px solid rgb(221, 221, 221);
+    padding-top: 5px;
+    padding-left: 20px;
 }

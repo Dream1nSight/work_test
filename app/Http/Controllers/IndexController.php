@@ -5,6 +5,7 @@
     use App\Paste;
     use Illuminate\Http\Request;
     use Illuminate\Http\Response;
+    use Illuminate\Support\Facades\DB;
 
     class IndexController extends Controller
     {
@@ -15,8 +16,8 @@
          */
         public function index()
         {
-            //$last_pastes = Paste::paginate(10);
-            return view('index');//, compact('last_pastes'));
+            $pub_pastes = Paste::getLastPastes(10);
+            return view('index', compact('pub_pastes'));
         }
 
         /**

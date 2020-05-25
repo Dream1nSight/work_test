@@ -9,13 +9,16 @@
             document.querySelector("input[name=cust_exp]").addEventListener("change", function(e) {
                 let cust_exp_panel = document.querySelector("#cust_exp_panel");
                 let exp_panel = document.querySelector("#exp_panel");
+                let exp_select = document.querySelector("#exp_panel > select");
 
                 if (e.target.checked) {
                     exp_panel.setAttribute("hidden", "");
                     cust_exp_panel.removeAttribute("hidden");
+                    exp_select.removeAttribute("name");
                 } else {
                     cust_exp_panel.setAttribute("hidden", "");
                     exp_panel.removeAttribute("hidden");
+                    exp_select.setAttribute("name", "expiries");
                 }
             });
         });

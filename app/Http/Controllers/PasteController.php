@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Paste;
-use Carbon\CarbonTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -40,9 +39,6 @@ class PasteController extends Controller
      */
     public function store(Request $request)
     {
-        //var_dump($request);
-        //return;
-
         $content = $request->post('paste');
 
         if (strlen($content) == 0)
@@ -84,7 +80,9 @@ class PasteController extends Controller
                 return view('404');
             }
 
-            return view('paste', compact('paste'));
+            $pub_pastes = Paste::getLastPastes(10);
+
+            return view('paste', compact(['paste', 'pub_pastes']));
         } else {
             return view('404');
         }
