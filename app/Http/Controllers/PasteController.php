@@ -72,7 +72,7 @@ class PasteController extends Controller
         if ($paste->count()) {
             return view('paste', compact('paste'));
         } else {
-            return redirect('/');
+            return view('404');
         }
     }
 
