@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Paste;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class PasteController extends Controller
 {
@@ -35,7 +37,22 @@ class PasteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //var_dump($request);
+        //return;
+
+        $content = $request->post('paste');
+
+        if (strlen($content) == 0)
+            return response()->view('/');
+
+        $p = new Paste;
+        $p->content = $content;
+        $p->is_public = boolval($request->post('public'));
+        $p->expiries_at = $request->post('expiries');
+        $p->link = md5(time());
+        $p->save();
+
+        return response()->redirectTo('/' . $p->link);
     }
 
     /**
@@ -44,9 +61,18 @@ class PasteController extends Controller
      * @param  \App\Paste  $paste
      * @return \Illuminate\Http\Response
      */
-    public function show(Paste $paste)
+    public function show(string $hash)
     {
-        //
+        //var_dump($hash);
+
+        $paste = DB::table('pastes')->where('link', $hash)->get();
+        //var_dump($paste);
+
+        if ($paste->count()) {
+            return view('paste', compact('paste'));
+        } else {
+            return redirect('/');
+        }
     }
 
     /**

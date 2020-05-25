@@ -17,9 +17,10 @@ class CreatePastesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
 
-            $table->timestamp('expiries_at');
+            $table->timestamp('expiries_at')->nullable();
             $table->boolean('is_public');
             $table->string('link');
+            $table->longText('content');
         });
     }
 

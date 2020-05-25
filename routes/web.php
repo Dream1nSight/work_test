@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Auth::routes();
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'IndexController@index');
+    Route::get('/{hash}', 'PasteController@show');
+    Route::post('/create', 'IndexController@store');
