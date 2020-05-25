@@ -21,6 +21,7 @@ class CreatePastesTable extends Migration
             $table->boolean('is_public');
             $table->string('link');
             $table->longText('content');
+            $table->string('title');
         });
     }
 

@@ -15,4 +15,4 @@
 
     Route::get('/', 'IndexController@index');
     Route::get('/{hash}', 'PasteController@show');
-    Route::post('/create', 'IndexController@store');
+    Route::post('/create', 'PasteController@store');

@@ -46,6 +46,7 @@ class PasteController extends Controller
             return response()->view('/');
 
         $p = new Paste;
+        $p->title = $request->post('title');
         $p->content = $content;
         $p->is_public = boolval($request->post('public'));
         $p->expiries_at = $request->post('expiries');
