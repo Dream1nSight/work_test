@@ -50,6 +50,15 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+
+                            @if (Route::has('vkauth'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('vkauth') }}">
+                                        {{ __('Login with ') }}
+                                        <img src={{ asset('images/vk.png') }} width=24 alt="VK">
+                                    </a>
+                                </li>
+                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
