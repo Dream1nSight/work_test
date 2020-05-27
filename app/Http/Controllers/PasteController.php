@@ -105,7 +105,7 @@ class PasteController extends Controller
             }
 
             if ($paste->access == Paste::ACCESS_PRIVARE &&
-                ! Auth::check() || $paste->user_id != auth()->id())
+                (! Auth::check() || $paste->user_id != auth()->id()))
                     return view('404');
 
             return view('paste', compact('paste'));
