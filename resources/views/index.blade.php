@@ -31,7 +31,19 @@
             @csrf
             <input type="hidden" name="_tz">
             <textarea name="paste" style="width: 70%" rows="10"></textarea>
-            <p>Public paste <input type="checkbox" name="public"></p>
+
+            @guest
+                <p>Public paste <input type="checkbox" name="public"></p>
+            @else
+                <p>Paste type
+                    <select name="paste_type">
+                        <option value="public">Public</option>
+                        <option value="unlisted">Unlisted</option>
+                        <option value="private">Private</option>
+                    </select>
+                </p>
+            @endguest
+
             <p>Custom expiration date <input type="checkbox" name="cust_exp"></p>
             <p id="cust_exp_panel" hidden>Expiries at <input type="datetime-local" name="expiries"></p>
             <p id="exp_panel">Expiries in

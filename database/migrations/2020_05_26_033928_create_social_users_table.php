@@ -20,7 +20,7 @@ class CreateSocialUsersTable extends Migration
             //$table->string('type');
             //$table->string('token');
             $table->integer('soc_id');
-            $table->unsignedBigInteger('user_id');
+            //$table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')
                 ->references('id')

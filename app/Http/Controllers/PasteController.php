@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Paste;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use function Sodium\add;
@@ -47,7 +48,26 @@ class PasteController extends Controller
         $p = new Paste;
         $p->title = $request->post('title');
         $p->content = $content;
-        $p->is_public = boolval($request->post('public'));
+
+        if (Auth::check()) {
+            $p->user_id = auth()->id();
+
+            switch ($request->post('paste_type')) {
+                case 'private':
+                    $p->access = Paste::ACCESS_PRIVARE;
+                    break;
+                case 'unlisted':
+                    $p->access = Paste::ACCESS_UNLISTED;
+                    break;
+                default:
+                    $p->access = Paste::ACCESS_PUBLIC;
+            }
+        } else {
+            $p->access = boolval($request->post('public'))
+                ? Paste::ACCESS_PUBLIC
+                : Paste::ACCESS_UNLISTED;
+        }
+
         $exp = $request->post('expiries');
 
         if (boolval($request->post('cust_exp'))) {
@@ -79,6 +99,10 @@ class PasteController extends Controller
                 $paste->delete();
                 return view('404');
             }
+
+            if ($paste->access == Paste::ACCESS_PRIVARE &&
+                ! Auth::check() || $paste->user_id != auth()->id())
+                    return view('404');
 
             return view('paste', compact('paste'));
         } else {

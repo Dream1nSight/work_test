@@ -18,10 +18,16 @@ class CreatePastesTable extends Migration
             $table->timestamps();
 
             $table->timestamp('expiries_at')->nullable();
-            $table->boolean('is_public');
+            $table->boolean('access');
             $table->string('link');
             $table->longText('content');
             $table->string('title');
+            $table->unsignedBigInteger('user_id')->nullable();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

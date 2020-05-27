@@ -85,10 +85,17 @@
 
         <main class="py-4">
             <aside class="pub-pastes-panel">
-                <p>Public Pastes</p>
+                <p style="font-weight: bold">Public Pastes</p>
                 @foreach(App\Paste::getLastPastes(10) as $paste)
                     <p><a href="/{{ $paste->link }}">{{ is_null($paste->title) ? 'Untitled' : $paste->title }}</a></p>
                 @endforeach
+
+                @auth
+                    <p style="font-weight: bold">My last pastes</p>
+                    @foreach(App\Paste::getLastPastes(10, auth()->id()) as $paste)
+                        <p><a href="/{{ $paste->link }}">{{ is_null($paste->title) ? 'Untitled' : $paste->title }}</a></p>
+                    @endforeach
+                @endauth
             </aside>
 
             @yield('content')
