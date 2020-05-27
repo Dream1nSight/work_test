@@ -21,7 +21,8 @@ class CreatePastesTable extends Migration
             $table->boolean('access');
             $table->string('link');
             $table->longText('content');
-            $table->string('title');
+            $table->string('title')->nullable();
+            $table->string('syntax')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
 
             $table->foreign('user_id')

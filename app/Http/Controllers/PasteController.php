@@ -48,6 +48,10 @@ class PasteController extends Controller
         $p = new Paste;
         $p->title = $request->post('title');
         $p->content = $content;
+        $p->syntax = $request->post('syntax');
+
+        if ($p->syntax == 'none')
+            $p->syntax = null;
 
         if (Auth::check()) {
             $p->user_id = auth()->id();

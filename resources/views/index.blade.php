@@ -58,6 +58,22 @@
                 </select>
             </p>
             <p>Paste name/title <input type="text" name="title"></p>
+            <p>Syntax highlighting
+                <select name="syntax">
+                    <option value="none">None</option>
+                    <option value="php">PHP</option>
+                    <option value="html">HTML</option>
+                    <option value="js">JavaScript</option>
+                    <option value="css">CSS</option>
+                    <option value="c">C</option>
+                    <option value="cpp">C++</option>
+                    <option value="cs">C#</option>
+                    <option value="bash">Bash</option>
+                    <option value="py">Python</option>
+                    <option value="perl">Perl</option>
+                    <option value="lua">Lua</option>
+                </select>
+            </p>
             <input type="submit" value="Create Paste">
         </form>
     </div>
