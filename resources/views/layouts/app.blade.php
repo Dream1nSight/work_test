@@ -66,6 +66,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('my-pastes', [1]) }}">
+                                        {{ __('My Pastes') }}
+                                    </a>
+
+                                    <div class="dropdown-divider"></div>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -82,7 +88,6 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             <aside class="pub-pastes-panel">
                 <p style="font-weight: bold">Public Pastes</p>

@@ -10,8 +10,8 @@ class Paste extends Model
     const ACCESS_PUBLIC = 1;
     const ACCESS_PRIVARE = 2;
 
-    public static function getLastPastes(int $count, int $user_id = null, int $access_type = null) {
-        //var_dump(func_get_args());
+    public static function getLastPastes(int $count, int $user_id = null, int $access_type = null)
+    {
         if (is_null($user_id)) {
             return Paste::latest()
                 ->where('access', self::ACCESS_PUBLIC)

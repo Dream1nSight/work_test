@@ -24,5 +24,8 @@
     Route::get('/vkauth', 'SocialUserController@vkauth')->name('vkauth');
     Route::get('/vkauth_callback', 'SocialUserController@vkauth_callback');
 
+    // My Pastes page
+    Route::get('/my-pastes/{page}', 'UserController@ViewMyPastes')->name('my-pastes');
+
     // Display paste
     Route::get('/{hash}', 'PasteController@show');

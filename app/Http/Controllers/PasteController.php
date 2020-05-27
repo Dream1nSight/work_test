@@ -94,7 +94,7 @@ class PasteController extends Controller
      */
     public function show(string $hash)
     {
-        $paste = Paste::query()->where('link', $hash)->get();
+        $paste = Paste::where('link', $hash)->get();
 
         if ($paste->count()) {
             $paste = $paste[0];
