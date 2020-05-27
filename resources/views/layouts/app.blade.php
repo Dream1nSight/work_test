@@ -86,7 +86,7 @@
         <main class="py-4">
             <aside class="pub-pastes-panel">
                 <p>Public Pastes</p>
-                @foreach($pub_pastes as $paste)
+                @foreach(App\Paste::getLastPastes(10) as $paste)
                     <p><a href="/{{ $paste->link }}">{{ is_null($paste->title) ? 'Untitled' : $paste->title }}</a></p>
                 @endforeach
             </aside>

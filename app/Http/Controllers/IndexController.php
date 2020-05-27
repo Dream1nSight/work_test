@@ -17,8 +17,7 @@
          */
         public function index()
         {
-            $pub_pastes = Paste::getLastPastes(10);
-            return view('index', compact('pub_pastes'));
+            return view('index');
         }
 
         /**

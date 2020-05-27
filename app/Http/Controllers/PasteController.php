@@ -71,7 +71,6 @@ class PasteController extends Controller
     public function show(string $hash)
     {
         $paste = Paste::query()->where('link', $hash)->get();
-        $pub_pastes = Paste::getLastPastes(10);
 
         if ($paste->count()) {
             $paste = $paste[0];
@@ -81,9 +80,9 @@ class PasteController extends Controller
                 return view('404');
             }
 
-            return view('paste', compact(['paste', 'pub_pastes']));
+            return view('paste', compact('paste'));
         } else {
-            return view('404', compact('pub_pastes'));
+            return view('404');
         }
     }
 
