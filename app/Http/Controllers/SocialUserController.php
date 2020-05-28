@@ -40,6 +40,10 @@ class SocialUserController extends Controller
     {
         $soc_user = SocialUser::where('soc_id', $soc_id)->first();
 
-        return $soc_user ? $soc_user->user : null;
+        if ( ! is_null($soc_user)) {
+            return User::where('id', $soc_user->user_id)->first();
+        }
+
+        return null;
     }
 }

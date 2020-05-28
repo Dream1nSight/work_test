@@ -89,6 +89,13 @@
             </div>
         </nav>
         <main class="py-4">
+            <form class="container" method="post" action="{{ route('search') }}">
+                @csrf
+                <span style="font-weight: bold">Search public pastes </span>
+                <input type="text" name="query" style="width: 40%">
+                <input type="submit" value="Find">
+            </form>
+            <p></p>
             <aside class="pub-pastes-panel">
                 <p style="font-weight: bold">Public Pastes</p>
                 @foreach(App\Paste::getLastPastes(10) as $paste)

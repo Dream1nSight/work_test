@@ -14,6 +14,7 @@ class CreatePastesTable extends Migration
     public function up()
     {
         Schema::create('pastes', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->bigIncrements('id');
             $table->timestamps();
 
@@ -24,12 +25,9 @@ class CreatePastesTable extends Migration
             $table->string('title')->nullable();
             $table->string('syntax')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
         });
+
+        DB::statement('ALTER TABLE pastes ADD FULLTEXT search(`title`, `content`)');
     }
 
     /**

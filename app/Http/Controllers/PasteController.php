@@ -114,37 +114,17 @@ class PasteController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Paste  $paste
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Paste $paste)
+    public function find(Request $request)
     {
-        //
-    }
+        $pastes = Paste::where('access', Paste::ACCESS_PUBLIC)
+            ->where(function ($q) {
+                $q->where('expiries_at', '>', now())
+                    ->orwhere('expiries_at', null);
+            })
+            ->whereRaw('MATCH(`title`, `content`) AGAINST(?)',
+                array($request->post('query')))
+            ->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Paste  $paste
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Paste $paste)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Paste  $paste
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Paste $paste)
-    {
-        //
+        return view('searchresults', compact('pastes'));
     }
 }

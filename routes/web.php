@@ -27,5 +27,8 @@
     // My Pastes page
     Route::get('/my-pastes/{page}', 'UserController@ViewMyPastes')->name('my-pastes');
 
+    // Search
+    Route::post('/search', 'PasteController@find')->name('search');
+
     // Display paste
     Route::get('/{hash}', 'PasteController@show');
